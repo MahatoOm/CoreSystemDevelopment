@@ -11,8 +11,8 @@ struct Reservation {
 	int studentID;
 };
 
-class ReservationManagement {
-private:
+class ReservationManager {
+public:
 	ReservationList activeReservations;
 
 public:
@@ -22,7 +22,7 @@ public:
 };
 
 //Create a new reservation
-void ReservationManagement::createReservation() {
+void ReservationManager ::createReservation() {
 	Reservation newReservation;
 	cout << "Enter Reservation ID: ";
 	cin >> newReservation.reservationID;
@@ -40,7 +40,7 @@ void ReservationManagement::createReservation() {
 }
 
 //Cancel an existing reservation
-void ReservationManagement::cancelReservation() {
+void ReservationManager ::cancelReservation() {
 	int reservationID;
 	cout << "Enter Reservation ID to cancel: ";
 	cin >> reservationID;
@@ -53,6 +53,6 @@ void ReservationManagement::cancelReservation() {
 }
 
 //Display all active reservations
-void ReservationManagement::displayActiveReservations() {
+void ReservationManager ::displayActiveReservations() {
 	activeReservations.displayReservations();
 }

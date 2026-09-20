@@ -2,6 +2,7 @@
 #include <string>
 using namespace std;
 //a linked list that stores actibe reservations
+
 struct Node {
 	Reservation reservation;
 	Node* next;
