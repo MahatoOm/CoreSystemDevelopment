@@ -1,135 +1,204 @@
 
+// #include <iostream>
+// #include <string>
+
+// using namespace std;
+
+// // Stores information about a cancelled reservation
+// struct Reservation
+// {
+//     int reservationID;
+//     int studentID;
+//     string studentName;
+//     string resourceID;
+//     string date;
+// };
+
+// // Node for the stack
+// struct CancellationNode
+// {
+//     Reservation reservation;
+//     CancellationNode* next;
+// };
+
+// // Cancellation history implemented using a stack
+// class CancellationHistory
+// {
+// private:
+//     CancellationNode* top;
+
+// public:
+//     // Constructor
+//     CancellationHistory()
+//     {
+//         top = nullptr;
+//     }
+
+//     // Add a cancelled reservation to the stack
+//     void pushCancellation(
+//         int reservationID,
+//         int studentID,
+//         string studentName,
+//         string resourceID,
+//         string date)
+//     {
+//         Reservation newReservation;
+
+//         newReservation.reservationID = reservationID;
+//         newReservation.studentID = studentID;
+//         newReservation.studentName = studentName;
+//         newReservation.resourceID = resourceID;
+//         newReservation.date = date;
+
+//         CancellationNode* newNode = new CancellationNode;
+
+//         newNode->reservation = newReservation;
+//         newNode->next = top;
+
+//         top = newNode;
+
+//         cout << "Reservation added to cancellation history."
+//              << endl;
+//     }
+
+//     // Restore the most recently cancelled reservation
+//     bool restoreLastCancellation(Reservation& restoredReservation)
+//     {
+//         if (top == nullptr)
+//         {
+//             cout << "No cancelled reservations to restore."
+//                  << endl;
+
+//             return false;
+//         }
+
+//         CancellationNode* temporary = top;
+
+//         restoredReservation = temporary->reservation;
+
+//         top = top->next;
+
+//         delete temporary;
+
+//         cout << "Last cancelled reservation restored."
+//              << endl;
+
+//         return true;
+//     }
+
+//     // Display cancellation history
+//     void displayHistory()
+//     {
+//         if (top == nullptr)
+//         {
+//             cout << "Cancellation history is empty." << endl;
+//             return;
+//         }
+
+//         CancellationNode* current = top;
+
+//         cout << "\nCancellation History:" << endl;
+
+//         while (current != nullptr)
+//         {
+//             cout << "Reservation ID: "
+//                  << current->reservation.reservationID << endl;
+
+//             cout << "Student ID: "
+//                  << current->reservation.studentID << endl;
+
+//             cout << "Student Name: "
+//                  << current->reservation.studentName << endl;
+
+//             cout << "Resource ID: "
+//                  << current->reservation.resourceID << endl;
+
+//             cout << "Date: "
+//                  << current->reservation.date << endl;
+
+//             cout << "------------------------" << endl;
+
+//             current = current->next;
+//         }
+//     }
+
+//     // Destructor
+//     ~CancellationHistory()
+//     {
+//         while (top != nullptr)
+//         {
+//             CancellationNode* temporary = top;
+//             top = top->next;
+//             delete temporary;
+//         }
+//     }
+// };
+
+#include "CancellationHistory.h"
 #include <iostream>
-#include <string>
 
-using namespace std;
-
-// Stores information about a cancelled reservation
-struct Reservation
+CancellationHistory::CancellationHistory()
 {
-    int reservationID;
-    int studentID;
-    string studentName;
-    string resourceID;
-    string date;
-};
+    top = nullptr;
+}
 
-// Node for the stack
-struct CancellationNode
+CancellationHistory::~CancellationHistory()
 {
     Reservation reservation;
-    CancellationNode* next;
-};
 
-// Cancellation history implemented using a stack
-class CancellationHistory
+    while (pop(reservation))
+    {
+        // Delete all nodes
+    }
+}
+
+void CancellationHistory::push(const Reservation& reservation)
 {
-private:
-    CancellationNode* top;
+    CancellationNode* newNode =
+        new CancellationNode(reservation);
 
-public:
-    // Constructor
-    CancellationHistory()
+    newNode->next = top;
+    top = newNode;
+}
+
+bool CancellationHistory::pop(Reservation& reservation)
+{
+    if (top == nullptr)
     {
-        top = nullptr;
+        return false;
     }
 
-    // Add a cancelled reservation to the stack
-    void pushCancellation(
-        int reservationID,
-        int studentID,
-        string studentName,
-        string resourceID,
-        string date)
+    CancellationNode* temp = top;
+
+    reservation = temp->reservation;
+
+    top = top->next;
+
+    delete temp;
+
+    return true;
+}
+
+bool CancellationHistory::isEmpty() const
+{
+    return top == nullptr;
+}
+
+void CancellationHistory::display() const
+{
+    if (top == nullptr)
     {
-        Reservation newReservation;
-
-        newReservation.reservationID = reservationID;
-        newReservation.studentID = studentID;
-        newReservation.studentName = studentName;
-        newReservation.resourceID = resourceID;
-        newReservation.date = date;
-
-        CancellationNode* newNode = new CancellationNode;
-
-        newNode->reservation = newReservation;
-        newNode->next = top;
-
-        top = newNode;
-
-        cout << "Reservation added to cancellation history."
-             << endl;
+        std::cout << "Cancellation history is empty.\n";
+        return;
     }
 
-    // Restore the most recently cancelled reservation
-    bool restoreLastCancellation(Reservation& restoredReservation)
+    CancellationNode* current = top;
+
+    std::cout << "\n--- Cancellation History ---\n";
+
+    while (current != nullptr)
     {
-        if (top == nullptr)
-        {
-            cout << "No cancelled reservations to restore."
-                 << endl;
-
-            return false;
-        }
-
-        CancellationNode* temporary = top;
-
-        restoredReservation = temporary->reservation;
-
-        top = top->next;
-
-        delete temporary;
-
-        cout << "Last cancelled reservation restored."
-             << endl;
-
-        return true;
+        current->reservation.display();
+        current = current->next;
     }
-
-    // Display cancellation history
-    void displayHistory()
-    {
-        if (top == nullptr)
-        {
-            cout << "Cancellation history is empty." << endl;
-            return;
-        }
-
-        CancellationNode* current = top;
-
-        cout << "\nCancellation History:" << endl;
-
-        while (current != nullptr)
-        {
-            cout << "Reservation ID: "
-                 << current->reservation.reservationID << endl;
-
-            cout << "Student ID: "
-                 << current->reservation.studentID << endl;
-
-            cout << "Student Name: "
-                 << current->reservation.studentName << endl;
-
-            cout << "Resource ID: "
-                 << current->reservation.resourceID << endl;
-
-            cout << "Date: "
-                 << current->reservation.date << endl;
-
-            cout << "------------------------" << endl;
-
-            current = current->next;
-        }
-    }
-
-    // Destructor
-    ~CancellationHistory()
-    {
-        while (top != nullptr)
-        {
-            CancellationNode* temporary = top;
-            top = top->next;
-            delete temporary;
-        }
-    }
-};
+}
