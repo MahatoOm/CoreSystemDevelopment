@@ -38,6 +38,9 @@ public:
     bool isEmpty() const;
 
     void display() const;
+
+    void remove(const std::string& studentID,
+                 const std::string& studentName) const;
 };
 
 #endif

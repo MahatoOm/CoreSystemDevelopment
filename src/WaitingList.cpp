@@ -222,3 +222,4 @@ void WaitingList::display() const
         current = current->next;
     }
 }
+
