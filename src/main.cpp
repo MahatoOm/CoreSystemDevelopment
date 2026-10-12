@@ -20,7 +20,8 @@ int  main(){
     // Defining optionanity    
     while (a){
     cout << " ===== Campus Resource Reservation System ===== " << endl;
-    cout << " 1. View Resources \n 2. Create Reservation \n 3. Cancel Reservation \n 4. View Waiting Lists \n 5. Undo Cancellation \n 6. Undo Reservation \n 7. Search Reservations \n 8. Sort Resources \n 9. Generate Report \n 0. Exit" << endl;
+    // cout << " 1. View Resources \n 2. Create Reservation \n 3. Cancel Reservation \n 4. View Waiting Lists \n 5. Undo Cancellation \n 6. Undo Reservation \n 7. Search Reservations \n 8. Sort Resources \n 9. Generate Report \n 10. Remove from Waiting \n 0. Exit" << endl;
+    cout << " 1. View Resources \n 2. Create Reservation \n 3. Cancel Reservation \n 4. View Waiting Lists \n 5. Undo Cancellation \n 6. View Reservation \n 7. Search Reservations \n 8. Cancellation History \n 9. Add to Waiting List \n 10. Remove from Waiting List \n 0. Exit" << endl;
     cout << "Enter Choice: ";
 
     
@@ -36,13 +37,13 @@ int  main(){
     else if(choice == 3){
         manager.cancelReservation();
 
-    }else if(choice == 4){
+    }else if(choice == 6){
         manager.displayReservations();
 
-    }else if(choice == 5){
+    }else if(choice == 4){
         manager.displayWaitingList();
 
-    }else if(choice == 6){
+    }else if(choice == 5){
         manager.undoCancellation();
         
     }else if(choice == 7){
@@ -52,14 +53,19 @@ int  main(){
         
     }else if(choice == 9){
         manager.addToWaitingList();
-        break;
+        
     }else if(choice == 0){
 
         cout << "Exiting Program ... \n" ;
         a = false;
         break;
        
-    }else {
+    }else if(choice == 10){
+        cout << "Remove from Waiting List\n";
+        manager.dequeWaitingList();
+
+    }
+    else {
         cout << "Invalid Output"<< endl; 
     }
     cout <<"\n\n"<< endl;

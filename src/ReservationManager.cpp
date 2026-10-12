@@ -472,12 +472,33 @@ void ReservationManager::addToWaitingList()
 
     std::cout << "Student added to waiting list.\n";
 }
+// ============================================================
+// REMOVE FROM WAITING LIST
+// ============================================================
 
 void ReservationManager::displayWaitingList()
 {
     waitingList.display();
 }
 
+
+void ReservationManager::dequeWaitingList()
+{
+    std::string studentID;
+    std::string studentName;
+
+    std::cout << "Enter Student ID: ";
+    std::cin >> studentID;
+
+    std::cin.ignore();
+
+    std::cout << "Enter Student Name: ";
+    std::getline(std::cin, studentName);
+
+    waitingList.dequeue(studentID, studentName);
+
+    std::cout << "Student removed to waiting list.\n";
+}
 // ============================================================
 // CANCELLATION HISTORY
 // ============================================================

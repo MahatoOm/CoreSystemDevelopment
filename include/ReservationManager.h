@@ -47,7 +47,7 @@ public:
 
     // Waiting list
     void addToWaitingList();
-
+    void dequeWaitingList();
     void displayWaitingList();
 
     // Cancellation
